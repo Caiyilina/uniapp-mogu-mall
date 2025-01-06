@@ -8,6 +8,16 @@
 		<home-popular></home-popular>
 		<!-- 4、选项卡组件 -->
 		<tab-control :titles="['流行','新款','精选']" @itemClick="handleTabClick"></tab-control>
+		<!-- 5、九宫格组件 -->
+		<uni-grid :column="2" border-color="#ff8198" :square="false" :showBorder="false" :highlight="false">
+			<template v-for="(itemInfo,index) in goodsList['pop'].list" :key="index">
+				<uni-grid-item>
+					<grid-view-item :item="itemInfo"></grid-view-item>
+				</uni-grid-item>
+			</template>
+
+
+		</uni-grid>
 	</view>
 </template>
 
@@ -24,20 +34,26 @@
 	import homePopular from "./cpns/home-popular.vue";
 
 	const homeStore = useHomeStore()
-	const { banners, recommends } = storeToRefs(homeStore)
+	const { banners, recommends, goodsList } = storeToRefs(homeStore)
+
+
+
+	const initData = () => {
+		// 触发一个异步的action 
+		homeStore.fetchHomeMultiData()
+		homeStore.fetchHomeData('pop', 1)
+		homeStore.fetchHomeData('sell', 1)
+		homeStore.fetchHomeData('new', 1)
+	}
 	onLoad(() => {
 
-		// 触发一个异步的action
-		console.log('home- onLoad');
-		homeStore.fetchHomeMultiData()
+		initData()
 	})
 
 	onShow(() => {
-
-		// 触发一个异步的action
-		console.log('home- onShow');
-		homeStore.fetchHomeMultiData()
+		initData()
 	})
+
 
 	const handleBannerClick = (link) => {
 		uni.navigateTo({

@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const BASE_URL = "http://192.168.1.115:3000";
+let BASE_URL;
+BASE_URL = "http://localhost:3000";
 const TIME_OUT = 1e4;
 class Request {
   request(url, method, params) {

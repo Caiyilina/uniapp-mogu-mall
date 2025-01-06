@@ -1,5 +1,11 @@
-// const BASE_URL = "http://localhost:3000"
-const BASE_URL = "http://192.168.1.115:3000"
+let BASE_URL
+// #ifndef APP 
+BASE_URL = "http://localhost:3000"
+// #endif
+// #ifdef APP
+BASE_URL = "http://192.168.1.115:3000"
+// #endif
+
 const TIME_OUT = 10000
 
 class Request {

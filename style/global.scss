@@ -14,3 +14,10 @@ $gFontSize:28rpx;
 	flex-direction: $direction;
 	align-items: $alignItem;
 }
+
+
+@mixin textEllipsis(){
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

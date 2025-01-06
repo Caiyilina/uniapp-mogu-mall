@@ -392,11 +392,11 @@ if (uni.restoreGlobal) {
                   };
                 }
               });
-              hook.on("app:init", (app, version, types) => {
+              hook.on("app:init", (app, version, types2) => {
                 const appRecord = {
                   app,
                   version,
-                  types
+                  types: types2
                 };
                 hook.apps.push(appRecord);
                 hook.emit("app:add", appRecord);
@@ -12574,7 +12574,7 @@ if (uni.restoreGlobal) {
     }
     return target;
   };
-  const _sfc_main$a = {
+  const _sfc_main$d = {
     __name: "tab-control",
     props: {
       titles: {
@@ -12597,7 +12597,7 @@ if (uni.restoreGlobal) {
       return __returned__;
     }
   };
-  function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "tab-control" }, [
       (vue.openBlock(true), vue.createElementBlock(
         vue.Fragment,
@@ -12622,7 +12622,232 @@ if (uni.restoreGlobal) {
       ))
     ]);
   }
-  const __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$9], ["__scopeId", "data-v-86d07902"], ["__file", "D:/myData/uniapp-mogu-mall/components/tab-control/tab-control.vue"]]);
+  const __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$c], ["__scopeId", "data-v-86d07902"], ["__file", "D:/myData/uniapp-mogu-mall/components/tab-control/tab-control.vue"]]);
+  const _imports_0$1 = "/static/images/common/favor.png";
+  const _sfc_main$c = {
+    __name: "grid-view-item",
+    props: {
+      item: {
+        type: Object,
+        default: () => {
+        }
+      }
+    },
+    emits: ["itemClick"],
+    setup(__props, { expose: __expose, emit: __emit }) {
+      __expose();
+      const props = __props;
+      const emit = __emit;
+      const handleItemClick = (item) => {
+        emit("itemClick", item);
+      };
+      const __returned__ = { props, emit, handleItemClick, ref: vue.ref };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "goods-item" }, [
+      vue.createElementVNode("image", {
+        "lazy-load": true,
+        class: "image",
+        src: $props.item.show.img,
+        mode: "scaleToFill"
+      }, null, 8, ["src"]),
+      vue.createElementVNode("view", { class: "desc-info" }, [
+        vue.createElementVNode(
+          "view",
+          { class: "title" },
+          vue.toDisplayString($props.item.title),
+          1
+          /* TEXT */
+        ),
+        vue.createElementVNode("view", { class: "info" }, [
+          vue.createElementVNode(
+            "text",
+            { class: "price" },
+            "￥" + vue.toDisplayString($props.item.price),
+            1
+            /* TEXT */
+          ),
+          vue.createElementVNode("image", {
+            class: "icon",
+            src: _imports_0$1,
+            mode: ""
+          }),
+          vue.createElementVNode(
+            "text",
+            { class: "favorNum" },
+            vue.toDisplayString($props.item.cfav),
+            1
+            /* TEXT */
+          )
+        ])
+      ])
+    ]);
+  }
+  const __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$b], ["__scopeId", "data-v-8ed22fda"], ["__file", "D:/myData/uniapp-mogu-mall/components/grid-view-item/grid-view-item.vue"]]);
+  const _sfc_main$b = {
+    name: "UniGridItem",
+    inject: ["grid"],
+    props: {
+      index: {
+        type: Number,
+        default: 0
+      }
+    },
+    data() {
+      return {
+        column: 0,
+        showBorder: true,
+        square: true,
+        highlight: true,
+        left: 0,
+        top: 0,
+        openNum: 2,
+        width: 0,
+        borderColor: "#e5e5e5"
+      };
+    },
+    created() {
+      this.column = this.grid.column;
+      this.showBorder = this.grid.showBorder;
+      this.square = this.grid.square;
+      this.highlight = this.grid.highlight;
+      this.top = this.hor === 0 ? this.grid.hor : this.hor;
+      this.left = this.ver === 0 ? this.grid.ver : this.ver;
+      this.borderColor = this.grid.borderColor;
+      this.grid.children.push(this);
+      this.width = this.grid.width;
+    },
+    beforeDestroy() {
+      this.grid.children.forEach((item, index) => {
+        if (item === this) {
+          this.grid.children.splice(index, 1);
+        }
+      });
+    },
+    methods: {
+      _onClick() {
+        this.grid.change({
+          detail: {
+            index: this.index
+          }
+        });
+      }
+    }
+  };
+  function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
+    return $data.width ? (vue.openBlock(), vue.createElementBlock(
+      "view",
+      {
+        key: 0,
+        style: vue.normalizeStyle("width:" + $data.width + ";" + ($data.square ? "height:" + $data.width : "")),
+        class: "uni-grid-item"
+      },
+      [
+        vue.createElementVNode(
+          "view",
+          {
+            class: vue.normalizeClass([{ "uni-grid-item--border": $data.showBorder, "uni-grid-item--border-top": $data.showBorder && $props.index < $data.column, "uni-highlight": $data.highlight }, "uni-grid-item__box"]),
+            style: vue.normalizeStyle({ "border-right-color": $data.borderColor, "border-bottom-color": $data.borderColor, "border-top-color": $data.borderColor }),
+            onClick: _cache[0] || (_cache[0] = (...args) => $options._onClick && $options._onClick(...args))
+          },
+          [
+            vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
+          ],
+          6
+          /* CLASS, STYLE */
+        )
+      ],
+      4
+      /* STYLE */
+    )) : vue.createCommentVNode("v-if", true);
+  }
+  const __easycom_2 = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$a], ["__scopeId", "data-v-7a807eb7"], ["__file", "D:/myData/uniapp-mogu-mall/uni_modules/uni-grid/components/uni-grid-item/uni-grid-item.vue"]]);
+  const _sfc_main$a = {
+    name: "UniGrid",
+    emits: ["change"],
+    props: {
+      // 每列显示个数
+      column: {
+        type: Number,
+        default: 3
+      },
+      // 是否显示边框
+      showBorder: {
+        type: Boolean,
+        default: true
+      },
+      // 边框颜色
+      borderColor: {
+        type: String,
+        default: "#D2D2D2"
+      },
+      // 是否正方形显示,默认为 true
+      square: {
+        type: Boolean,
+        default: true
+      },
+      highlight: {
+        type: Boolean,
+        default: true
+      }
+    },
+    provide() {
+      return {
+        grid: this
+      };
+    },
+    data() {
+      const elId = `Uni_${Math.ceil(Math.random() * 1e6).toString(36)}`;
+      return {
+        elId,
+        width: 0
+      };
+    },
+    created() {
+      this.children = [];
+    },
+    mounted() {
+      this.$nextTick(() => {
+        this.init();
+      });
+    },
+    methods: {
+      init() {
+        setTimeout(() => {
+          this._getSize((width) => {
+            this.children.forEach((item, index) => {
+              item.width = width;
+            });
+          });
+        }, 50);
+      },
+      change(e) {
+        this.$emit("change", e);
+      },
+      _getSize(fn) {
+        uni.createSelectorQuery().in(this).select(`#${this.elId}`).boundingClientRect().exec((ret) => {
+          this.width = parseInt((ret[0].width - 1) / this.column) + "px";
+          fn(this.width);
+        });
+      }
+    }
+  };
+  function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "uni-grid-wrap" }, [
+      vue.createElementVNode("view", {
+        id: $data.elId,
+        ref: "uni-grid",
+        class: vue.normalizeClass(["uni-grid", { "uni-grid--border": $props.showBorder }]),
+        style: vue.normalizeStyle({ "border-left-color": $props.borderColor })
+      }, [
+        vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
+      ], 14, ["id"])
+    ]);
+  }
+  const __easycom_3 = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$9], ["__scopeId", "data-v-07acefee"], ["__file", "D:/myData/uniapp-mogu-mall/uni_modules/uni-grid/components/uni-grid/uni-grid.vue"]]);
   var isVue2 = false;
   function set(target, key, val) {
     if (Array.isArray(target)) {
@@ -14079,7 +14304,8 @@ This will fail in production.`);
       return refs;
     }
   }
-  const BASE_URL = "http://192.168.1.115:3000";
+  let BASE_URL;
+  BASE_URL = "http://192.168.1.115:3000";
   const TIME_OUT = 1e4;
   class Request {
     request(url, method, params) {
@@ -14114,25 +14340,39 @@ This will fail in production.`);
       page
     });
   }
+  const types = ["pop", "new", "sell"];
+  function getDefaultGoodsListData() {
+    let goodListOrign = {};
+    types.forEach((type) => {
+      goodListOrign[type] = {
+        page: 0,
+        list: []
+      };
+    });
+    return goodListOrign;
+  }
   const useHomeStore = defineStore("home", {
     state: () => {
       return {
         banners: [],
-        recommends: []
+        recommends: [],
+        goodsList: getDefaultGoodsListData()
       };
     },
     actions: {
       async fetchHomeMultiData() {
-        formatAppLog("log", "at store/home.js:13", "发送网络请求 fetchHomeMultiData");
         const res = await getHomeMultidata();
         let data = res.data.banner.list || [];
         let data2 = res.data.recommend.list || [];
-        formatAppLog("log", "at store/home.js:17", "打印--", data);
         this.banners = data;
         this.recommends = data2;
       },
-      async fetchHomeData() {
-        await getHomeData();
+      async fetchHomeData(type, page) {
+        let res = await getHomeData(type, page);
+        let data = res.data.list || [];
+        formatAppLog("log", "at store/home.js:37", type, "home-data", data);
+        this.goodsList[type].list.push(...data);
+        this.goodsList[type].page = page;
       }
     }
   });
@@ -14257,14 +14497,18 @@ This will fail in production.`);
     setup(__props, { expose: __expose }) {
       __expose();
       const homeStore = useHomeStore();
-      const { banners, recommends } = storeToRefs(homeStore);
-      onLoad(() => {
-        formatAppLog("log", "at pages/home/home.vue:31", "home- onLoad");
+      const { banners, recommends, goodsList } = storeToRefs(homeStore);
+      const initData = () => {
         homeStore.fetchHomeMultiData();
+        homeStore.fetchHomeData("pop", 1);
+        homeStore.fetchHomeData("sell", 1);
+        homeStore.fetchHomeData("new", 1);
+      };
+      onLoad(() => {
+        initData();
       });
       onShow(() => {
-        formatAppLog("log", "at pages/home/home.vue:38", "home- onShow");
-        homeStore.fetchHomeMultiData();
+        initData();
       });
       const handleBannerClick = (link) => {
         uni.navigateTo({
@@ -14277,9 +14521,9 @@ This will fail in production.`);
         });
       };
       const handleTabClick = (item, index) => {
-        formatAppLog("log", "at pages/home/home.vue:55", "点击了", item, index);
+        formatAppLog("log", "at pages/home/home.vue:71", "点击了", item, index);
       };
-      const __returned__ = { homeStore, banners, recommends, handleBannerClick, handleRecommendClick, handleTabClick, onMounted: vue.onMounted, get onLoad() {
+      const __returned__ = { homeStore, banners, recommends, goodsList, initData, handleBannerClick, handleRecommendClick, handleTabClick, onMounted: vue.onMounted, get onLoad() {
         return onLoad;
       }, get onShow() {
         return onShow;
@@ -14294,6 +14538,9 @@ This will fail in production.`);
   };
   function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_tab_control = resolveEasycom(vue.resolveDynamicComponent("tab-control"), __easycom_0);
+    const _component_grid_view_item = resolveEasycom(vue.resolveDynamicComponent("grid-view-item"), __easycom_1);
+    const _component_uni_grid_item = resolveEasycom(vue.resolveDynamicComponent("uni-grid-item"), __easycom_2);
+    const _component_uni_grid = resolveEasycom(vue.resolveDynamicComponent("uni-grid"), __easycom_3);
     return vue.openBlock(), vue.createElementBlock("view", { class: "content" }, [
       vue.createCommentVNode(" 1、轮播图组件 "),
       vue.createVNode($setup["homeBanner"], {
@@ -14311,6 +14558,40 @@ This will fail in production.`);
       vue.createVNode(_component_tab_control, {
         titles: ["流行", "新款", "精选"],
         onItemClick: $setup.handleTabClick
+      }),
+      vue.createCommentVNode(" 5、九宫格组件 "),
+      vue.createVNode(_component_uni_grid, {
+        column: 2,
+        "border-color": "#ff8198",
+        square: false,
+        showBorder: false,
+        highlight: false
+      }, {
+        default: vue.withCtx(() => [
+          (vue.openBlock(true), vue.createElementBlock(
+            vue.Fragment,
+            null,
+            vue.renderList($setup.goodsList["pop"].list, (itemInfo, index) => {
+              return vue.openBlock(), vue.createBlock(
+                _component_uni_grid_item,
+                { key: index },
+                {
+                  default: vue.withCtx(() => [
+                    vue.createVNode(_component_grid_view_item, { item: itemInfo }, null, 8, ["item"])
+                  ]),
+                  _: 2
+                  /* DYNAMIC */
+                },
+                1024
+                /* DYNAMIC_SLOTS */
+              );
+            }),
+            128
+            /* KEYED_FRAGMENT */
+          ))
+        ]),
+        _: 1
+        /* STABLE */
       })
     ]);
   }
