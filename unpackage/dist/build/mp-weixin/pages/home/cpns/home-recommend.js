@@ -1,0 +1,1 @@
+"use strict";const e=require("../../../common/vendor.js"),t={__name:"home-recommend",props:{recommends:{type:Array,default:()=>[]}},emits:["itemClick"],setup(t,{emit:m}){const o=m;return(m,r)=>({a:e.f(t.recommends,((t,m,r)=>({a:t.image,b:e.t(t.title),c:m,d:e.o((e=>(e=>{o("itemClick",e)})(t)),m)})))})}};wx.createComponent(t);

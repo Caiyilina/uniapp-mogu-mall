@@ -1,0 +1,1 @@
+.tab-control{display:flex;justify-content:space-between;flex-direction:row;align-items:center;padding:10rpx;box-sizing:border-box}.tab-control .item{flex:1;text-align:center;box-sizing:border-box}.tab-control .item .title{display:inline-block;border-bottom:4rpx solid #fff;padding:16rpx}.tab-control .item.active{color:#ff5777}.tab-control .item.active .title{border-color:#ff5777}

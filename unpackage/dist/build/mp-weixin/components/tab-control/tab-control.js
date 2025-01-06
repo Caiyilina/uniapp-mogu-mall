@@ -1,0 +1,1 @@
+"use strict";const e=require("../../common/vendor.js"),t={__name:"tab-control",props:{titles:{type:Array,default:()=>[]}},emits:["itemClick"],setup(t,{emit:r}){const i=r,o=e.ref(0);return(r,a)=>({a:e.f(t.titles,((t,r,a)=>({a:e.t(t),b:e.n(o.value===r?"active":""),c:e.o((e=>((e,t)=>{o.value=t,i("itemClick",e,t)})(t,r)),t),d:t})))})}};wx.createComponent(t);
