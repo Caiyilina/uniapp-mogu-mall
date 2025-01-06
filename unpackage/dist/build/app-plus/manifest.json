@@ -5,7 +5,7 @@
     "iPad"
   ],
   "id": "__UNI__CEA9DE4",
-  "name": "uniapp-mogu-mall",
+  "name": "购物街",
   "version": {
     "name": "1.0.0",
     "code": "100"
@@ -90,6 +90,13 @@
           "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
           "<uses-feature android:name=\"android.hardware.camera\"/>",
           "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+        ],
+        "minSdkVersion": 21,
+        "targetSdkVersion": 29,
+        "abiFilters": [
+          "armeabi-v7a",
+          "arm64-v8a",
+          "x86"
         ]
       },
       "apple": {
