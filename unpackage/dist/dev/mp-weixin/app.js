@@ -7,6 +7,7 @@ if (!Math) {
   "./pages/profile/profile.js";
   "./pages/detail/detail.js";
   "./pages/cart/cart.js";
+  "./pages/webview/webview.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -19,6 +20,8 @@ const _sfc_main = {
     console.log("App Hide");
   }
 };
+require("./vue-devtools/hook.js");
+require("./vue-devtools/backend.js");
 function createApp() {
   const app = common_vendor.createSSRApp(_sfc_main);
   app.use(common_vendor.createPinia());

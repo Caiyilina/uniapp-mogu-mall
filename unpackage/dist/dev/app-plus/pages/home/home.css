@@ -1,0 +1,53 @@
+.tab-control[data-v-86d07902] {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.3125rem;
+  box-sizing: border-box;
+}
+.tab-control .item[data-v-86d07902] {
+  flex: 1;
+  text-align: center;
+  box-sizing: border-box;
+}
+.tab-control .item .title[data-v-86d07902] {
+  display: inline-block;
+  border-bottom: 0.125rem solid #fff;
+  padding: 0.5rem;
+}
+.tab-control .item.active[data-v-86d07902] {
+  color: #ff5777;
+}
+.tab-control .item.active .title[data-v-86d07902] {
+  border-color: #ff5777;
+}
+.banner .image[data-v-945d8e98] {
+  width: 100%;
+}
+.recommend[data-v-637e2969] {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+.recommend .recommend-item[data-v-637e2969] {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.625rem;
+  font-size: 0.875rem;
+}
+.recommend .recommend-item .image[data-v-637e2969] {
+  width: 4.6875rem;
+  height: 4.6875rem;
+}
+.recommend .recommend-item .title[data-v-637e2969] {
+  margin-top: 0.3125rem;
+}
+.popular .image[data-v-29e3ef9e] {
+  width: 100%;
+}

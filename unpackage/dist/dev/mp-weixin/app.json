@@ -4,12 +4,13 @@
     "pages/category/category",
     "pages/profile/profile",
     "pages/detail/detail",
-    "pages/cart/cart"
+    "pages/cart/cart",
+    "pages/webview/webview"
   ],
   "window": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "购物街",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#f78992",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {

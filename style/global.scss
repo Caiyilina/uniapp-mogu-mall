@@ -5,9 +5,12 @@ $gPriceColor:#ff5f3e;
 $gNormalColor: #666;
 
 $gBgColor:#f2f2f2;
+$gFontSize:28rpx;
 
-@mixin normalFlex($direction: row, $justify: space-between) {
+// 定义混合
+@mixin normalFlex($direction: row, $justify: space-between,$alignItem:center) {
 	display: flex;
 	justify-content: $justify;
 	flex-direction: $direction;
+	align-items: $alignItem;
 }

@@ -29,12 +29,19 @@
 			"style": {
 				"navigationBarTitleText": "购物车"
 			}
+		},
+		{
+			"path" : "pages/webview/webview",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "购物街",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#f78992",
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {

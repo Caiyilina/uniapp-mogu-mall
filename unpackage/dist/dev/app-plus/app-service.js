@@ -39,38 +39,13 @@ if (uni.restoreGlobal) {
       console[type].apply(console, [...args, filename]);
     }
   }
+  function resolveEasycom(component, easycom) {
+    return typeof component === "string" ? easycom : component;
+  }
   const createHook = (lifecycle) => (hook, target = vue.getCurrentInstance()) => {
     !vue.isInSSRComponentSetup && vue.injectHook(lifecycle, hook, target);
   };
   const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
-  const BASE_URL = "http://localhost:3000";
-  const TIME_OUT = 1e4;
-  class Request {
-    request(url, method, params) {
-      return new Promise((resolve, reject) => {
-        uni.request({
-          url: BASE_URL + url,
-          timeout: TIME_OUT,
-          method,
-          data: params,
-          success: (res) => {
-            resolve(res.data);
-          },
-          fail: reject
-        });
-      });
-    }
-    get(url, params) {
-      return this.request(url, "GET", params);
-    }
-    post(url, data) {
-      return this.request(url, "POST", data);
-    }
-  }
-  const request = new Request();
-  function getHomeMultidata() {
-    return request.get("/home/multidata");
-  }
   const _export_sfc = (sfc, props) => {
     const target = sfc.__vccOpts || sfc;
     for (const [key, val] of props) {
@@ -78,73 +53,72 @@ if (uni.restoreGlobal) {
     }
     return target;
   };
-  const _sfc_main$5 = {
-    __name: "home",
-    setup(__props, { expose: __expose }) {
+  const _sfc_main$a = {
+    __name: "tab-control",
+    props: {
+      titles: {
+        type: Array,
+        default: () => []
+      }
+    },
+    emits: ["itemClick"],
+    setup(__props, { expose: __expose, emit: __emit }) {
       __expose();
-      onLoad(() => {
-      });
-      const __returned__ = { get onLoad() {
-        return onLoad;
-      }, get getHomeMultidata() {
-        return getHomeMultidata;
-      } };
+      const props = __props;
+      const emit = __emit;
+      const currentIndex = vue.ref(0);
+      const handleItemClick = (item, index) => {
+        currentIndex.value = index;
+        emit("itemClick", item, index);
+      };
+      const __returned__ = { props, emit, currentIndex, handleItemClick, ref: vue.ref };
       Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
       return __returned__;
     }
   };
-  function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
-    return vue.openBlock(), vue.createElementBlock("view", { class: "content" }, " home ");
+  function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "tab-control" }, [
+      (vue.openBlock(true), vue.createElementBlock(
+        vue.Fragment,
+        null,
+        vue.renderList($props.titles, (item, index) => {
+          return vue.openBlock(), vue.createElementBlock("view", {
+            key: item,
+            class: vue.normalizeClass(["item", $setup.currentIndex === index ? "active" : ""]),
+            onClick: ($event) => $setup.handleItemClick(item, index)
+          }, [
+            vue.createElementVNode(
+              "text",
+              { class: "title" },
+              vue.toDisplayString(item),
+              1
+              /* TEXT */
+            )
+          ], 10, ["onClick"]);
+        }),
+        128
+        /* KEYED_FRAGMENT */
+      ))
+    ]);
   }
-  const PagesHomeHome = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$4], ["__file", "D:/myData/uniapp-mogu-mall/pages/home/home.vue"]]);
-  const _sfc_main$4 = {};
-  function _sfc_render$3(_ctx, _cache) {
-    return vue.openBlock(), vue.createElementBlock("view");
-  }
-  const PagesCategoryCategory = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__file", "D:/myData/uniapp-mogu-mall/pages/category/category.vue"]]);
-  const _sfc_main$3 = {};
-  function _sfc_render$2(_ctx, _cache) {
-    return vue.openBlock(), vue.createElementBlock("view");
-  }
-  const PagesProfileProfile = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__file", "D:/myData/uniapp-mogu-mall/pages/profile/profile.vue"]]);
-  const _sfc_main$2 = {
-    __name: "detail",
-    setup(__props, { expose: __expose }) {
-      __expose();
-      const __returned__ = { get onLoad() {
-        return onLoad;
-      } };
-      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-      return __returned__;
-    }
-  };
-  function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
-    return vue.openBlock(), vue.createElementBlock("view");
-  }
-  const PagesDetailDetail = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1], ["__file", "D:/myData/uniapp-mogu-mall/pages/detail/detail.vue"]]);
-  const _sfc_main$1 = {};
-  function _sfc_render(_ctx, _cache) {
-    return vue.openBlock(), vue.createElementBlock("view");
-  }
-  const PagesCartCart = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__file", "D:/myData/uniapp-mogu-mall/pages/cart/cart.vue"]]);
-  __definePage("pages/home/home", PagesHomeHome);
-  __definePage("pages/category/category", PagesCategoryCategory);
-  __definePage("pages/profile/profile", PagesProfileProfile);
-  __definePage("pages/detail/detail", PagesDetailDetail);
-  __definePage("pages/cart/cart", PagesCartCart);
-  const _sfc_main = {
-    onLaunch: function() {
-      formatAppLog("log", "at App.vue:4", "App Launch");
-    },
-    onShow: function() {
-      formatAppLog("log", "at App.vue:7", "App Show");
-    },
-    onHide: function() {
-      formatAppLog("log", "at App.vue:10", "App Hide");
-    }
-  };
-  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__file", "D:/myData/uniapp-mogu-mall/App.vue"]]);
+  const __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$9], ["__scopeId", "data-v-86d07902"], ["__file", "D:/myData/uniapp-mogu-mall/components/tab-control/tab-control.vue"]]);
   var isVue2 = false;
+  function set(target, key, val) {
+    if (Array.isArray(target)) {
+      target.length = Math.max(target.length, key);
+      target.splice(key, 1, val);
+      return val;
+    }
+    target[key] = val;
+    return val;
+  }
+  function del(target, key) {
+    if (Array.isArray(target)) {
+      target.splice(key, 1);
+      return;
+    }
+    delete target[key];
+  }
   function getDevtoolsGlobalHook() {
     return getTarget().__VUE_DEVTOOLS_GLOBAL_HOOK__;
   }
@@ -297,7 +271,12 @@ if (uni.restoreGlobal) {
    * (c) 2023 Eduardo San Martin Morote
    * @license MIT
    */
+  let activePinia;
+  const setActivePinia = (pinia) => activePinia = pinia;
   const piniaSymbol = Symbol("pinia");
+  function isPlainObject(o) {
+    return o && typeof o === "object" && Object.prototype.toString.call(o) === "[object Object]" && typeof o.toJSON !== "function";
+  }
   var MutationType;
   (function(MutationType2) {
     MutationType2["direct"] = "direct";
@@ -1055,6 +1034,7 @@ Only state can be modified.`);
     let toBeInstalled = [];
     const pinia = vue.markRaw({
       install(app) {
+        setActivePinia(pinia);
         {
           pinia._a = app;
           app.provide(piniaSymbol, pinia);
@@ -1087,6 +1067,783 @@ Only state can be modified.`);
     }
     return pinia;
   }
+  function patchObject(newState, oldState) {
+    for (const key in oldState) {
+      const subPatch = oldState[key];
+      if (!(key in newState)) {
+        continue;
+      }
+      const targetValue = newState[key];
+      if (isPlainObject(targetValue) && isPlainObject(subPatch) && !vue.isRef(subPatch) && !vue.isReactive(subPatch)) {
+        newState[key] = patchObject(targetValue, subPatch);
+      } else {
+        {
+          newState[key] = subPatch;
+        }
+      }
+    }
+    return newState;
+  }
+  const noop = () => {
+  };
+  function addSubscription(subscriptions, callback, detached, onCleanup = noop) {
+    subscriptions.push(callback);
+    const removeSubscription = () => {
+      const idx = subscriptions.indexOf(callback);
+      if (idx > -1) {
+        subscriptions.splice(idx, 1);
+        onCleanup();
+      }
+    };
+    if (!detached && vue.getCurrentScope()) {
+      vue.onScopeDispose(removeSubscription);
+    }
+    return removeSubscription;
+  }
+  function triggerSubscriptions(subscriptions, ...args) {
+    subscriptions.slice().forEach((callback) => {
+      callback(...args);
+    });
+  }
+  const fallbackRunWithContext = (fn) => fn();
+  function mergeReactiveObjects(target, patchToApply) {
+    if (target instanceof Map && patchToApply instanceof Map) {
+      patchToApply.forEach((value, key) => target.set(key, value));
+    }
+    if (target instanceof Set && patchToApply instanceof Set) {
+      patchToApply.forEach(target.add, target);
+    }
+    for (const key in patchToApply) {
+      if (!patchToApply.hasOwnProperty(key))
+        continue;
+      const subPatch = patchToApply[key];
+      const targetValue = target[key];
+      if (isPlainObject(targetValue) && isPlainObject(subPatch) && target.hasOwnProperty(key) && !vue.isRef(subPatch) && !vue.isReactive(subPatch)) {
+        target[key] = mergeReactiveObjects(targetValue, subPatch);
+      } else {
+        target[key] = subPatch;
+      }
+    }
+    return target;
+  }
+  const skipHydrateSymbol = Symbol("pinia:skipHydration");
+  function shouldHydrate(obj) {
+    return !isPlainObject(obj) || !obj.hasOwnProperty(skipHydrateSymbol);
+  }
+  const { assign } = Object;
+  function isComputed(o) {
+    return !!(vue.isRef(o) && o.effect);
+  }
+  function createOptionsStore(id, options, pinia, hot) {
+    const { state, actions, getters } = options;
+    const initialState = pinia.state.value[id];
+    let store;
+    function setup() {
+      if (!initialState && !hot) {
+        {
+          pinia.state.value[id] = state ? state() : {};
+        }
+      }
+      const localState = hot ? (
+        // use ref() to unwrap refs inside state TODO: check if this is still necessary
+        vue.toRefs(vue.ref(state ? state() : {}).value)
+      ) : vue.toRefs(pinia.state.value[id]);
+      return assign(localState, actions, Object.keys(getters || {}).reduce((computedGetters, name) => {
+        if (name in localState) {
+          console.warn(`[🍍]: A getter cannot have the same name as another state property. Rename one of them. Found with "${name}" in store "${id}".`);
+        }
+        computedGetters[name] = vue.markRaw(vue.computed(() => {
+          setActivePinia(pinia);
+          const store2 = pinia._s.get(id);
+          return getters[name].call(store2, store2);
+        }));
+        return computedGetters;
+      }, {}));
+    }
+    store = createSetupStore(id, setup, options, pinia, hot, true);
+    return store;
+  }
+  function createSetupStore($id, setup, options = {}, pinia, hot, isOptionsStore) {
+    let scope;
+    const optionsForPlugin = assign({ actions: {} }, options);
+    if (!pinia._e.active) {
+      throw new Error("Pinia destroyed");
+    }
+    const $subscribeOptions = {
+      deep: true
+      // flush: 'post',
+    };
+    {
+      $subscribeOptions.onTrigger = (event) => {
+        if (isListening) {
+          debuggerEvents = event;
+        } else if (isListening == false && !store._hotUpdating) {
+          if (Array.isArray(debuggerEvents)) {
+            debuggerEvents.push(event);
+          } else {
+            console.error("🍍 debuggerEvents should be an array. This is most likely an internal Pinia bug.");
+          }
+        }
+      };
+    }
+    let isListening;
+    let isSyncListening;
+    let subscriptions = [];
+    let actionSubscriptions = [];
+    let debuggerEvents;
+    const initialState = pinia.state.value[$id];
+    if (!isOptionsStore && !initialState && !hot) {
+      {
+        pinia.state.value[$id] = {};
+      }
+    }
+    const hotState = vue.ref({});
+    let activeListener;
+    function $patch(partialStateOrMutator) {
+      let subscriptionMutation;
+      isListening = isSyncListening = false;
+      {
+        debuggerEvents = [];
+      }
+      if (typeof partialStateOrMutator === "function") {
+        partialStateOrMutator(pinia.state.value[$id]);
+        subscriptionMutation = {
+          type: MutationType.patchFunction,
+          storeId: $id,
+          events: debuggerEvents
+        };
+      } else {
+        mergeReactiveObjects(pinia.state.value[$id], partialStateOrMutator);
+        subscriptionMutation = {
+          type: MutationType.patchObject,
+          payload: partialStateOrMutator,
+          storeId: $id,
+          events: debuggerEvents
+        };
+      }
+      const myListenerId = activeListener = Symbol();
+      vue.nextTick().then(() => {
+        if (activeListener === myListenerId) {
+          isListening = true;
+        }
+      });
+      isSyncListening = true;
+      triggerSubscriptions(subscriptions, subscriptionMutation, pinia.state.value[$id]);
+    }
+    const $reset = isOptionsStore ? function $reset2() {
+      const { state } = options;
+      const newState = state ? state() : {};
+      this.$patch(($state) => {
+        assign($state, newState);
+      });
+    } : (
+      /* istanbul ignore next */
+      () => {
+        throw new Error(`🍍: Store "${$id}" is built using the setup syntax and does not implement $reset().`);
+      }
+    );
+    function $dispose() {
+      scope.stop();
+      subscriptions = [];
+      actionSubscriptions = [];
+      pinia._s.delete($id);
+    }
+    function wrapAction(name, action) {
+      return function() {
+        setActivePinia(pinia);
+        const args = Array.from(arguments);
+        const afterCallbackList = [];
+        const onErrorCallbackList = [];
+        function after(callback) {
+          afterCallbackList.push(callback);
+        }
+        function onError(callback) {
+          onErrorCallbackList.push(callback);
+        }
+        triggerSubscriptions(actionSubscriptions, {
+          args,
+          name,
+          store,
+          after,
+          onError
+        });
+        let ret;
+        try {
+          ret = action.apply(this && this.$id === $id ? this : store, args);
+        } catch (error) {
+          triggerSubscriptions(onErrorCallbackList, error);
+          throw error;
+        }
+        if (ret instanceof Promise) {
+          return ret.then((value) => {
+            triggerSubscriptions(afterCallbackList, value);
+            return value;
+          }).catch((error) => {
+            triggerSubscriptions(onErrorCallbackList, error);
+            return Promise.reject(error);
+          });
+        }
+        triggerSubscriptions(afterCallbackList, ret);
+        return ret;
+      };
+    }
+    const _hmrPayload = /* @__PURE__ */ vue.markRaw({
+      actions: {},
+      getters: {},
+      state: [],
+      hotState
+    });
+    const partialStore = {
+      _p: pinia,
+      // _s: scope,
+      $id,
+      $onAction: addSubscription.bind(null, actionSubscriptions),
+      $patch,
+      $reset,
+      $subscribe(callback, options2 = {}) {
+        const removeSubscription = addSubscription(subscriptions, callback, options2.detached, () => stopWatcher());
+        const stopWatcher = scope.run(() => vue.watch(() => pinia.state.value[$id], (state) => {
+          if (options2.flush === "sync" ? isSyncListening : isListening) {
+            callback({
+              storeId: $id,
+              type: MutationType.direct,
+              events: debuggerEvents
+            }, state);
+          }
+        }, assign({}, $subscribeOptions, options2)));
+        return removeSubscription;
+      },
+      $dispose
+    };
+    const store = vue.reactive(assign(
+      {
+        _hmrPayload,
+        _customProperties: vue.markRaw(/* @__PURE__ */ new Set())
+        // devtools custom properties
+      },
+      partialStore
+      // must be added later
+      // setupStore
+    ));
+    pinia._s.set($id, store);
+    const runWithContext = pinia._a && pinia._a.runWithContext || fallbackRunWithContext;
+    const setupStore = runWithContext(() => pinia._e.run(() => (scope = vue.effectScope()).run(setup)));
+    for (const key in setupStore) {
+      const prop = setupStore[key];
+      if (vue.isRef(prop) && !isComputed(prop) || vue.isReactive(prop)) {
+        if (hot) {
+          set(hotState.value, key, vue.toRef(setupStore, key));
+        } else if (!isOptionsStore) {
+          if (initialState && shouldHydrate(prop)) {
+            if (vue.isRef(prop)) {
+              prop.value = initialState[key];
+            } else {
+              mergeReactiveObjects(prop, initialState[key]);
+            }
+          }
+          {
+            pinia.state.value[$id][key] = prop;
+          }
+        }
+        {
+          _hmrPayload.state.push(key);
+        }
+      } else if (typeof prop === "function") {
+        const actionValue = hot ? prop : wrapAction(key, prop);
+        {
+          setupStore[key] = actionValue;
+        }
+        {
+          _hmrPayload.actions[key] = prop;
+        }
+        optionsForPlugin.actions[key] = prop;
+      } else {
+        if (isComputed(prop)) {
+          _hmrPayload.getters[key] = isOptionsStore ? (
+            // @ts-expect-error
+            options.getters[key]
+          ) : prop;
+          if (IS_CLIENT) {
+            const getters = setupStore._getters || // @ts-expect-error: same
+            (setupStore._getters = vue.markRaw([]));
+            getters.push(key);
+          }
+        }
+      }
+    }
+    {
+      assign(store, setupStore);
+      assign(vue.toRaw(store), setupStore);
+    }
+    Object.defineProperty(store, "$state", {
+      get: () => hot ? hotState.value : pinia.state.value[$id],
+      set: (state) => {
+        if (hot) {
+          throw new Error("cannot set hotState");
+        }
+        $patch(($state) => {
+          assign($state, state);
+        });
+      }
+    });
+    {
+      store._hotUpdate = vue.markRaw((newStore) => {
+        store._hotUpdating = true;
+        newStore._hmrPayload.state.forEach((stateKey) => {
+          if (stateKey in store.$state) {
+            const newStateTarget = newStore.$state[stateKey];
+            const oldStateSource = store.$state[stateKey];
+            if (typeof newStateTarget === "object" && isPlainObject(newStateTarget) && isPlainObject(oldStateSource)) {
+              patchObject(newStateTarget, oldStateSource);
+            } else {
+              newStore.$state[stateKey] = oldStateSource;
+            }
+          }
+          set(store, stateKey, vue.toRef(newStore.$state, stateKey));
+        });
+        Object.keys(store.$state).forEach((stateKey) => {
+          if (!(stateKey in newStore.$state)) {
+            del(store, stateKey);
+          }
+        });
+        isListening = false;
+        isSyncListening = false;
+        pinia.state.value[$id] = vue.toRef(newStore._hmrPayload, "hotState");
+        isSyncListening = true;
+        vue.nextTick().then(() => {
+          isListening = true;
+        });
+        for (const actionName in newStore._hmrPayload.actions) {
+          const action = newStore[actionName];
+          set(store, actionName, wrapAction(actionName, action));
+        }
+        for (const getterName in newStore._hmrPayload.getters) {
+          const getter = newStore._hmrPayload.getters[getterName];
+          const getterValue = isOptionsStore ? (
+            // special handling of options api
+            vue.computed(() => {
+              setActivePinia(pinia);
+              return getter.call(store, store);
+            })
+          ) : getter;
+          set(store, getterName, getterValue);
+        }
+        Object.keys(store._hmrPayload.getters).forEach((key) => {
+          if (!(key in newStore._hmrPayload.getters)) {
+            del(store, key);
+          }
+        });
+        Object.keys(store._hmrPayload.actions).forEach((key) => {
+          if (!(key in newStore._hmrPayload.actions)) {
+            del(store, key);
+          }
+        });
+        store._hmrPayload = newStore._hmrPayload;
+        store._getters = newStore._getters;
+        store._hotUpdating = false;
+      });
+    }
+    if (USE_DEVTOOLS) {
+      const nonEnumerable = {
+        writable: true,
+        configurable: true,
+        // avoid warning on devtools trying to display this property
+        enumerable: false
+      };
+      ["_p", "_hmrPayload", "_getters", "_customProperties"].forEach((p) => {
+        Object.defineProperty(store, p, assign({ value: store[p] }, nonEnumerable));
+      });
+    }
+    pinia._p.forEach((extender) => {
+      if (USE_DEVTOOLS) {
+        const extensions = scope.run(() => extender({
+          store,
+          app: pinia._a,
+          pinia,
+          options: optionsForPlugin
+        }));
+        Object.keys(extensions || {}).forEach((key) => store._customProperties.add(key));
+        assign(store, extensions);
+      } else {
+        assign(store, scope.run(() => extender({
+          store,
+          app: pinia._a,
+          pinia,
+          options: optionsForPlugin
+        })));
+      }
+    });
+    if (store.$state && typeof store.$state === "object" && typeof store.$state.constructor === "function" && !store.$state.constructor.toString().includes("[native code]")) {
+      console.warn(`[🍍]: The "state" must be a plain object. It cannot be
+	state: () => new MyClass()
+Found in store "${store.$id}".`);
+    }
+    if (initialState && isOptionsStore && options.hydrate) {
+      options.hydrate(store.$state, initialState);
+    }
+    isListening = true;
+    isSyncListening = true;
+    return store;
+  }
+  function defineStore(idOrOptions, setup, setupOptions) {
+    let id;
+    let options;
+    const isSetupStore = typeof setup === "function";
+    if (typeof idOrOptions === "string") {
+      id = idOrOptions;
+      options = isSetupStore ? setupOptions : setup;
+    } else {
+      options = idOrOptions;
+      id = idOrOptions.id;
+      if (typeof id !== "string") {
+        throw new Error(`[🍍]: "defineStore()" must be passed a store id as its first argument.`);
+      }
+    }
+    function useStore(pinia, hot) {
+      const hasContext = vue.hasInjectionContext();
+      pinia = // in test mode, ignore the argument provided as we can always retrieve a
+      // pinia instance with getActivePinia()
+      pinia || (hasContext ? vue.inject(piniaSymbol, null) : null);
+      if (pinia)
+        setActivePinia(pinia);
+      if (!activePinia) {
+        throw new Error(`[🍍]: "getActivePinia()" was called but there was no active Pinia. Are you trying to use a store before calling "app.use(pinia)"?
+See https://pinia.vuejs.org/core-concepts/outside-component-usage.html for help.
+This will fail in production.`);
+      }
+      pinia = activePinia;
+      if (!pinia._s.has(id)) {
+        if (isSetupStore) {
+          createSetupStore(id, setup, options, pinia);
+        } else {
+          createOptionsStore(id, options, pinia);
+        }
+        {
+          useStore._pinia = pinia;
+        }
+      }
+      const store = pinia._s.get(id);
+      if (hot) {
+        const hotId = "__hot:" + id;
+        const newStore = isSetupStore ? createSetupStore(hotId, setup, options, pinia, true) : createOptionsStore(hotId, assign({}, options), pinia, true);
+        hot._hotUpdate(newStore);
+        delete pinia.state.value[hotId];
+        pinia._s.delete(hotId);
+      }
+      if (IS_CLIENT) {
+        const currentInstance = vue.getCurrentInstance();
+        if (currentInstance && currentInstance.proxy && // avoid adding stores that are just built for hot module replacement
+        !hot) {
+          const vm = currentInstance.proxy;
+          const cache = "_pStores" in vm ? vm._pStores : vm._pStores = {};
+          cache[id] = store;
+        }
+      }
+      return store;
+    }
+    useStore.$id = id;
+    return useStore;
+  }
+  function storeToRefs(store) {
+    {
+      store = vue.toRaw(store);
+      const refs = {};
+      for (const key in store) {
+        const value = store[key];
+        if (vue.isRef(value) || vue.isReactive(value)) {
+          refs[key] = // ---
+          vue.toRef(store, key);
+        }
+      }
+      return refs;
+    }
+  }
+  const BASE_URL = "http://localhost:3000";
+  const TIME_OUT = 1e4;
+  class Request {
+    request(url, method, params) {
+      return new Promise((resolve, reject) => {
+        uni.request({
+          url: BASE_URL + url,
+          timeout: TIME_OUT,
+          method,
+          data: params,
+          success: (res) => {
+            resolve(res.data);
+          },
+          fail: reject
+        });
+      });
+    }
+    get(url, params) {
+      return this.request(url, "GET", params);
+    }
+    post(url, data) {
+      return this.request(url, "POST", data);
+    }
+  }
+  const request = new Request();
+  function getHomeMultidata() {
+    return request.get("/home/multidata");
+  }
+  const useHomeStore = defineStore("home", {
+    state: () => {
+      return {
+        banners: [],
+        recommends: []
+      };
+    },
+    actions: {
+      async fetchHomeMultiData() {
+        const res = await getHomeMultidata();
+        let data = res.data.banner.list || [];
+        let data2 = res.data.recommend.list || [];
+        formatAppLog("log", "at store/home.js:16", "打印--", data);
+        this.banners = data;
+        this.recommends = data2;
+      }
+    }
+  });
+  const _sfc_main$9 = {
+    __name: "home-banner",
+    props: {
+      banners: {
+        type: Array,
+        default: () => []
+      }
+    },
+    emits: ["bannerItemClick"],
+    setup(__props, { expose: __expose, emit: __emit }) {
+      __expose();
+      const props = __props;
+      const emit = __emit;
+      const handleItemClick = (item) => {
+        const link = item.link;
+        emit("bannerItemClick", link);
+      };
+      const __returned__ = { props, emit, handleItemClick };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("swiper", {
+      class: "banner",
+      "indicator-dots": true,
+      "indicator-active-color": "#ff8198",
+      autoplay: true,
+      interval: 3e3,
+      duration: 1e3
+    }, [
+      (vue.openBlock(true), vue.createElementBlock(
+        vue.Fragment,
+        null,
+        vue.renderList($props.banners, (item, index) => {
+          return vue.openBlock(), vue.createElementBlock("swiper-item", {
+            key: index,
+            onClick: ($event) => $setup.handleItemClick(item)
+          }, [
+            vue.createElementVNode("image", {
+              class: "image",
+              src: item.image,
+              mode: "widthFix"
+            }, null, 8, ["src"])
+          ], 8, ["onClick"]);
+        }),
+        128
+        /* KEYED_FRAGMENT */
+      ))
+    ]);
+  }
+  const homeBanner = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$8], ["__scopeId", "data-v-945d8e98"], ["__file", "D:/myData/uniapp-mogu-mall/pages/home/cpns/home-banner.vue"]]);
+  const _sfc_main$8 = {
+    __name: "home-recommend",
+    props: {
+      recommends: {
+        type: Array,
+        default: () => []
+      }
+    },
+    emits: ["itemClick"],
+    setup(__props, { expose: __expose, emit: __emit }) {
+      __expose();
+      const props = __props;
+      const emit = __emit;
+      const handleItemClick = (item) => {
+        emit("itemClick", item);
+      };
+      const __returned__ = { props, emit, handleItemClick };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "recommend" }, [
+      (vue.openBlock(true), vue.createElementBlock(
+        vue.Fragment,
+        null,
+        vue.renderList($props.recommends, (item, index) => {
+          return vue.openBlock(), vue.createElementBlock("view", {
+            class: "recommend-item",
+            key: index,
+            onClick: ($event) => $setup.handleItemClick(item)
+          }, [
+            vue.createElementVNode("image", {
+              class: "image",
+              src: item.image,
+              mode: "widthFix"
+            }, null, 8, ["src"]),
+            vue.createElementVNode(
+              "view",
+              { class: "title" },
+              vue.toDisplayString(item.title),
+              1
+              /* TEXT */
+            )
+          ], 8, ["onClick"]);
+        }),
+        128
+        /* KEYED_FRAGMENT */
+      ))
+    ]);
+  }
+  const homeRecommend = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$7], ["__scopeId", "data-v-637e2969"], ["__file", "D:/myData/uniapp-mogu-mall/pages/home/cpns/home-recommend.vue"]]);
+  const _imports_0 = "/static/images/home/recommend_bg.jpg";
+  const _sfc_main$7 = {};
+  function _sfc_render$6(_ctx, _cache) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "popular" }, [
+      vue.createElementVNode("image", {
+        class: "image",
+        src: _imports_0,
+        mode: "widthFix"
+      })
+    ]);
+  }
+  const homePopular = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$6], ["__scopeId", "data-v-29e3ef9e"], ["__file", "D:/myData/uniapp-mogu-mall/pages/home/cpns/home-popular.vue"]]);
+  const _sfc_main$6 = {
+    __name: "home",
+    setup(__props, { expose: __expose }) {
+      __expose();
+      const homeStore = useHomeStore();
+      const { banners, recommends } = storeToRefs(homeStore);
+      onLoad(() => {
+        homeStore.fetchHomeMultiData();
+      });
+      const handleBannerClick = (link) => {
+        uni.navigateTo({
+          url: "/pages/webview/webview?link=" + link
+        });
+      };
+      const handleRecommendClick = (item) => {
+        uni.navigateTo({
+          url: "/pages/webview/webview?link=" + item.link
+        });
+      };
+      const handleTabClick = (item, index) => {
+        formatAppLog("log", "at pages/home/home.vue:44", "点击了", item, index);
+      };
+      const __returned__ = { homeStore, banners, recommends, handleBannerClick, handleRecommendClick, handleTabClick, get onLoad() {
+        return onLoad;
+      }, get storeToRefs() {
+        return storeToRefs;
+      }, get useHomeStore() {
+        return useHomeStore;
+      }, homeBanner, homeRecommend, homePopular };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_tab_control = resolveEasycom(vue.resolveDynamicComponent("tab-control"), __easycom_0);
+    return vue.openBlock(), vue.createElementBlock("view", { class: "content" }, [
+      vue.createCommentVNode(" 1、轮播图组件 "),
+      vue.createVNode($setup["homeBanner"], {
+        banners: $setup.banners,
+        onBannerItemClick: $setup.handleBannerClick
+      }, null, 8, ["banners"]),
+      vue.createCommentVNode(" 2、推荐栏组件 "),
+      vue.createVNode($setup["homeRecommend"], {
+        recommends: $setup.recommends,
+        onItemClick: $setup.handleRecommendClick
+      }, null, 8, ["recommends"]),
+      vue.createCommentVNode(" 3、热门栏组件 "),
+      vue.createVNode($setup["homePopular"]),
+      vue.createCommentVNode(" 4、选项卡组件 "),
+      vue.createVNode(_component_tab_control, {
+        titles: ["流行", "新款", "精选"],
+        onItemClick: $setup.handleTabClick
+      })
+    ]);
+  }
+  const PagesHomeHome = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$5], ["__file", "D:/myData/uniapp-mogu-mall/pages/home/home.vue"]]);
+  const _sfc_main$5 = {};
+  function _sfc_render$4(_ctx, _cache) {
+    return vue.openBlock(), vue.createElementBlock("view");
+  }
+  const PagesCategoryCategory = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$4], ["__file", "D:/myData/uniapp-mogu-mall/pages/category/category.vue"]]);
+  const _sfc_main$4 = {};
+  function _sfc_render$3(_ctx, _cache) {
+    return vue.openBlock(), vue.createElementBlock("view");
+  }
+  const PagesProfileProfile = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__file", "D:/myData/uniapp-mogu-mall/pages/profile/profile.vue"]]);
+  const _sfc_main$3 = {
+    __name: "detail",
+    setup(__props, { expose: __expose }) {
+      __expose();
+      const __returned__ = { get onLoad() {
+        return onLoad;
+      } };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view");
+  }
+  const PagesDetailDetail = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__file", "D:/myData/uniapp-mogu-mall/pages/detail/detail.vue"]]);
+  const _sfc_main$2 = {};
+  function _sfc_render$1(_ctx, _cache) {
+    return vue.openBlock(), vue.createElementBlock("view");
+  }
+  const PagesCartCart = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1], ["__file", "D:/myData/uniapp-mogu-mall/pages/cart/cart.vue"]]);
+  const _sfc_main$1 = {
+    __name: "webview",
+    props: {
+      link: {
+        type: String,
+        default: ""
+      }
+    },
+    setup(__props, { expose: __expose }) {
+      __expose();
+      const props = __props;
+      const __returned__ = { props };
+      Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+      return __returned__;
+    }
+  };
+  function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("web-view", { src: $props.link }, null, 8, ["src"]);
+  }
+  const PagesWebviewWebview = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__file", "D:/myData/uniapp-mogu-mall/pages/webview/webview.vue"]]);
+  __definePage("pages/home/home", PagesHomeHome);
+  __definePage("pages/category/category", PagesCategoryCategory);
+  __definePage("pages/profile/profile", PagesProfileProfile);
+  __definePage("pages/detail/detail", PagesDetailDetail);
+  __definePage("pages/cart/cart", PagesCartCart);
+  __definePage("pages/webview/webview", PagesWebviewWebview);
+  const _sfc_main = {
+    onLaunch: function() {
+      formatAppLog("log", "at App.vue:4", "App Launch");
+    },
+    onShow: function() {
+      formatAppLog("log", "at App.vue:7", "App Show");
+    },
+    onHide: function() {
+      formatAppLog("log", "at App.vue:10", "App Hide");
+    }
+  };
+  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__file", "D:/myData/uniapp-mogu-mall/App.vue"]]);
   function createApp() {
     const app = vue.createVueApp(App);
     app.use(createPinia());

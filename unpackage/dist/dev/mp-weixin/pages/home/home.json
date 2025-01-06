@@ -1,4 +1,9 @@
 {
   "navigationBarTitleText": "首页",
-  "usingComponents": {}
+  "usingComponents": {
+    "tab-control": "../../components/tab-control/tab-control",
+    "home-banner": "./cpns/home-banner",
+    "home-recommend": "./cpns/home-recommend",
+    "home-popular": "./cpns/home-popular"
+  }
 }
