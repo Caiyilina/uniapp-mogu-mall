@@ -1723,7 +1723,7 @@ let targetHost = "";
 const hosts = "192.168.1.115".split(",");
 setTimeout(() => {
   index.request({
-    url: `http://${"localhost"}:${9501}`,
+    url: `http://${"localhost"}:${9500}`,
     timeout: 1e3,
     success() {
       targetHost = "localhost";
@@ -1733,7 +1733,7 @@ setTimeout(() => {
       if (!targetHost && hosts.length) {
         hosts.forEach((host2) => {
           index.request({
-            url: `http://${host2}:${9501}`,
+            url: `http://${host2}:${9500}`,
             timeout: 1e3,
             success() {
               if (!targetHost) {
@@ -8535,6 +8535,7 @@ function storeToRefs(store) {
 const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
   !isInSSRComponentSetup && injectHook(lifecycle, hook, target);
 };
+const onShow = /* @__PURE__ */ createHook(ON_SHOW);
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
 exports._export_sfc = _export_sfc;
 exports.createPinia = createPinia;
@@ -8545,6 +8546,7 @@ exports.index = index;
 exports.n = n;
 exports.o = o;
 exports.onLoad = onLoad;
+exports.onShow = onShow;
 exports.p = p;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;

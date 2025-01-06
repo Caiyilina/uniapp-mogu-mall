@@ -12,8 +12,10 @@
 </template>
 
 <script setup>
+	import { onMounted } from "vue";
 	import {
-		onLoad
+		onLoad,
+		onShow
 	} from "@dcloudio/uni-app"
 	import { storeToRefs } from "pinia"
 	import { useHomeStore } from "@/store/home.js";
@@ -26,8 +28,17 @@
 	onLoad(() => {
 
 		// 触发一个异步的action
+		console.log('home- onLoad');
 		homeStore.fetchHomeMultiData()
 	})
+
+	onShow(() => {
+
+		// 触发一个异步的action
+		console.log('home- onShow');
+		homeStore.fetchHomeMultiData()
+	})
+
 	const handleBannerClick = (link) => {
 		uni.navigateTo({
 			url: '/pages/webview/webview?link=' + link,

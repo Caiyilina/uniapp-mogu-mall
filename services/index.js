@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000"
+// const BASE_URL = "http://localhost:3000"
+const BASE_URL = "http://192.168.1.115:3000"
 const TIME_OUT = 10000
 
 class Request {
@@ -9,6 +10,7 @@ class Request {
 				timeout: TIME_OUT,
 				method: method,
 				data: params,
+				sslVerify: false,
 				success: res => {
 					resolve(res.data)
 				},

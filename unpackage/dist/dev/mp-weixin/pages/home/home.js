@@ -18,6 +18,11 @@ const _sfc_main = {
     const homeStore = store_home.useHomeStore();
     const { banners, recommends } = common_vendor.storeToRefs(homeStore);
     common_vendor.onLoad(() => {
+      console.log("home- onLoad");
+      homeStore.fetchHomeMultiData();
+    });
+    common_vendor.onShow(() => {
+      console.log("home- onShow");
       homeStore.fetchHomeMultiData();
     });
     const handleBannerClick = (link) => {

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { getHomeMultidata } from "@/services/home"
+import { getHomeData, getHomeMultidata } from "@/services/home"
 
 export const useHomeStore = defineStore('home', {
 	state: () => {
@@ -10,6 +10,7 @@ export const useHomeStore = defineStore('home', {
 	},
 	actions: {
 		async fetchHomeMultiData() {
+			console.log('发送网络请求 fetchHomeMultiData');
 			const res = await getHomeMultidata()
 			let data = res.data.banner.list || []
 			let data2 = res.data.recommend.list || []
@@ -17,6 +18,10 @@ export const useHomeStore = defineStore('home', {
 			this.banners = data
 			this.recommends = data2
 		},
+		async fetchHomeData() {
+			let res = await getHomeData()
+
+		}
 
 	}
 })
