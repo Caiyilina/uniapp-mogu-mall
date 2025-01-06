@@ -31,7 +31,6 @@ const useHomeStore = common_vendor.defineStore("home", {
     async fetchHomeData(type, page) {
       let res = await services_home.getHomeData(type, page);
       let data = res.data.list || [];
-      console.log(type, "home-data", data);
       this.goodsList[type].list.push(...data);
       this.goodsList[type].page = page;
     }

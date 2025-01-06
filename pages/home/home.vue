@@ -12,7 +12,7 @@
 		<uni-grid :column="2" border-color="#ff8198" :square="false" :showBorder="false" :highlight="false">
 			<template v-for="(itemInfo,index) in goodsList['pop'].list" :key="index">
 				<uni-grid-item>
-					<grid-view-item :item="itemInfo"></grid-view-item>
+					<grid-view-item :item="itemInfo" @itemClick="handleGridItemClick"></grid-view-item>
 				</uni-grid-item>
 			</template>
 
@@ -69,6 +69,12 @@
 	}
 	const handleTabClick = (item, index) => {
 		console.log('点击了', item, index);
+	}
+	const handleGridItemClick = (item) => {
+		console.log('详情页面', item);
+		uni.navigateTo({
+			url: '/pages/detail/detail?iid=' + item.iid
+		})
 	}
 </script>
 

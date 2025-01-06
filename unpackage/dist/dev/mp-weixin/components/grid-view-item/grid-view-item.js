@@ -12,13 +12,19 @@ const _sfc_main = {
   },
   emits: ["itemClick"],
   setup(__props, { emit: __emit }) {
+    const props = __props;
+    const emit = __emit;
+    const handleItemClick = () => {
+      emit("itemClick", props.item);
+    };
     return (_ctx, _cache) => {
       return {
         a: __props.item.show.img,
         b: common_vendor.t(__props.item.title),
         c: common_vendor.t(__props.item.price),
         d: common_assets._imports_0,
-        e: common_vendor.t(__props.item.cfav)
+        e: common_vendor.t(__props.item.cfav),
+        f: common_vendor.o(handleItemClick)
       };
     };
   }

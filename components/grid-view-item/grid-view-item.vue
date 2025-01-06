@@ -1,5 +1,5 @@
 <template>
-	<view class="goods-item">
+	<view class="goods-item" @click="handleItemClick">
 		<!-- #ifdef H5 -->
 		<img class="image" v-lazy="item.show.img" />
 		<!-- #endif -->
@@ -29,9 +29,9 @@
 		}
 	})
 	const emit = defineEmits(['itemClick'])
-	const handleItemClick = (item) => {
+	const handleItemClick = () => {
 
-		emit('itemClick', item)
+		emit('itemClick', props.item)
 	}
 </script>
 

@@ -34,7 +34,6 @@ export const useHomeStore = defineStore('home', {
 		async fetchHomeData(type, page) {
 			let res = await getHomeData(type, page)
 			let data = res.data.list || []
-			console.log(type, 'home-data', data);
 			this.goodsList[type].list.push(...data)
 			this.goodsList[type].page = page
 

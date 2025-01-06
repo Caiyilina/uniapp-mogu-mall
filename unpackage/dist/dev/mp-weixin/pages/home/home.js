@@ -48,6 +48,12 @@ const _sfc_main = {
     const handleTabClick = (item, index) => {
       console.log("点击了", item, index);
     };
+    const handleGridItemClick = (item) => {
+      console.log("详情页面", item);
+      common_vendor.index.navigateTo({
+        url: "/pages/detail/detail?iid=" + item.iid
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.o(handleBannerClick),
@@ -64,12 +70,13 @@ const _sfc_main = {
         }),
         g: common_vendor.f(common_vendor.unref(goodsList)["pop"].list, (itemInfo, index, i0) => {
           return {
-            a: "e7207910-6-" + i0 + "," + ("e7207910-5-" + i0),
-            b: common_vendor.p({
+            a: common_vendor.o(handleGridItemClick, index),
+            b: "e7207910-6-" + i0 + "," + ("e7207910-5-" + i0),
+            c: common_vendor.p({
               item: itemInfo
             }),
-            c: "e7207910-5-" + i0 + ",e7207910-4",
-            d: index
+            d: "e7207910-5-" + i0 + ",e7207910-4",
+            e: index
           };
         }),
         h: common_vendor.p({

@@ -12638,8 +12638,8 @@ if (uni.restoreGlobal) {
       __expose();
       const props = __props;
       const emit = __emit;
-      const handleItemClick = (item) => {
-        emit("itemClick", item);
+      const handleItemClick = () => {
+        emit("itemClick", props.item);
       };
       const __returned__ = { props, emit, handleItemClick, ref: vue.ref };
       Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
@@ -12647,7 +12647,10 @@ if (uni.restoreGlobal) {
     }
   };
   function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
-    return vue.openBlock(), vue.createElementBlock("view", { class: "goods-item" }, [
+    return vue.openBlock(), vue.createElementBlock("view", {
+      class: "goods-item",
+      onClick: $setup.handleItemClick
+    }, [
       vue.createElementVNode("image", {
         "lazy-load": true,
         class: "image",
@@ -14370,7 +14373,6 @@ This will fail in production.`);
       async fetchHomeData(type, page) {
         let res = await getHomeData(type, page);
         let data = res.data.list || [];
-        formatAppLog("log", "at store/home.js:37", type, "home-data", data);
         this.goodsList[type].list.push(...data);
         this.goodsList[type].page = page;
       }
@@ -14523,7 +14525,13 @@ This will fail in production.`);
       const handleTabClick = (item, index) => {
         formatAppLog("log", "at pages/home/home.vue:71", "点击了", item, index);
       };
-      const __returned__ = { homeStore, banners, recommends, goodsList, initData, handleBannerClick, handleRecommendClick, handleTabClick, onMounted: vue.onMounted, get onLoad() {
+      const handleGridItemClick = (item) => {
+        formatAppLog("log", "at pages/home/home.vue:74", "详情页面", item);
+        uni.navigateTo({
+          url: "/pages/detail/detail?iid=" + item.iid
+        });
+      };
+      const __returned__ = { homeStore, banners, recommends, goodsList, initData, handleBannerClick, handleRecommendClick, handleTabClick, handleGridItemClick, onMounted: vue.onMounted, get onLoad() {
         return onLoad;
       }, get onShow() {
         return onShow;
@@ -14577,7 +14585,10 @@ This will fail in production.`);
                 { key: index },
                 {
                   default: vue.withCtx(() => [
-                    vue.createVNode(_component_grid_view_item, { item: itemInfo }, null, 8, ["item"])
+                    vue.createVNode(_component_grid_view_item, {
+                      item: itemInfo,
+                      onItemClick: $setup.handleGridItemClick
+                    }, null, 8, ["item"])
                   ]),
                   _: 2
                   /* DYNAMIC */
@@ -14608,9 +14619,19 @@ This will fail in production.`);
   const PagesProfileProfile = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__file", "D:/myData/uniapp-mogu-mall/pages/profile/profile.vue"]]);
   const _sfc_main$3 = {
     __name: "detail",
+    props: {
+      iid: {
+        type: String,
+        default: ""
+      }
+    },
     setup(__props, { expose: __expose }) {
       __expose();
-      const __returned__ = { get onLoad() {
+      const props = __props;
+      onLoad((options) => {
+        formatAppLog("log", "at pages/detail/detail.vue:19", "detail-- onLoad", options);
+      });
+      const __returned__ = { props, get onLoad() {
         return onLoad;
       } };
       Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
@@ -14618,7 +14639,13 @@ This will fail in production.`);
     }
   };
   function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
-    return vue.openBlock(), vue.createElementBlock("view");
+    return vue.openBlock(), vue.createElementBlock(
+      "view",
+      null,
+      vue.toDisplayString($props.iid),
+      1
+      /* TEXT */
+    );
   }
   const PagesDetailDetail = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__file", "D:/myData/uniapp-mogu-mall/pages/detail/detail.vue"]]);
   const _sfc_main$2 = {};
