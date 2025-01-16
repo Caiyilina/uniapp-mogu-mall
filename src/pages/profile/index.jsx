@@ -1,6 +1,6 @@
 import { View, Text } from "@tarojs/components";
 import React, { memo } from "react";
-import styles from "./index.modules.scss";
+import styles from "./index.module.scss";
 
 const Profile = memo(() => {
   return (

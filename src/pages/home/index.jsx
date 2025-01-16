@@ -2,9 +2,15 @@ import React, { memo } from "react";
 
 import { View } from "@tarojs/components";
 import styles from "./index.module.scss";
+import HomeSearch from "./cpns/home-search";
 
 const Home = memo(() => {
-  return <View className={styles["home"]}>Home</View>;
+  return (
+    <View className={styles["home"]}>
+      Home
+      <HomeSearch></HomeSearch>
+    </View>
+  );
 });
 
 export default Home;
