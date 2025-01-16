@@ -7,7 +7,6 @@ import HomeSearch from "./cpns/home-search";
 const Home = memo(() => {
   return (
     <View className={styles["home"]}>
-      Home
       <HomeSearch></HomeSearch>
     </View>
   );

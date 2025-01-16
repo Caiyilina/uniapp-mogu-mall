@@ -1,2 +1,36 @@
+@use "@/assets/css/variables.scss";
 .home-search {
+  @include variables.normalFlex(row, space-between);
+  align-items: center;
+  height: 88px;
+  .search-panel {
+    flex: 1;
+    display: flex;
+
+    align-items: center;
+    height: 58px;
+    margin: 18px 0 18px 18px;
+    background-color: variables.$hy-bg-color-grey;
+    border-radius: 6px;
+    .left-search-img {
+      width: 44px;
+      height: 44px;
+      padding: 0 8px 0 6px;
+    }
+    .name {
+      font-size: 24px;
+      font-weight: 500;
+      color: variables.$hy-color-primary;
+
+      .sub-name {
+        font-size: 12px;
+        color: variables.$hy-bg-color-grey;
+        padding-left: 8px;
+      }
+    }
+  }
+  .right-search-img {
+    width: 88px;
+    height: 88px;
+  }
 }
