@@ -2,11 +2,15 @@
 // https://docs.taro.zone/docs/next/babel-config
 module.exports = {
   presets: [
-    ['taro', {
-      framework: 'react',
-      ts: false,
-      compiler: 'webpack5',
-      useBuiltIns: process.env.TARO_ENV === 'h5' ? 'usage' : false
-    }]
-  ]
-}
+    [
+      "taro",
+      {
+        framework: "react",
+        ts: false,
+        compiler: "webpack5",
+        useBuiltIns: process.env.TARO_ENV === "h5" ? "usage" : false,
+        hot: false, //禁用 fast refresh
+      },
+    ],
+  ],
+};
