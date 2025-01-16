@@ -1,17 +1,8 @@
+import React, { memo } from "react";
 
-import { useLaunch } from '@tarojs/taro'
+const App = memo((props) => {
+  const { children } = props;
+  return <div>{children}</div>;
+});
 
-import './app.scss'
-
-function App({ children }) {
-  useLaunch(() => {
-    console.log('App launched.')
-  })
-
-  // children 是将要会渲染的页面
-  return children
-}
-  
-
-
-export default App
+export default App;
