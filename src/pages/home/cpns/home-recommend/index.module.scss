@@ -1,0 +1,59 @@
+@use "@/assets/css/variables.scss";
+.home-recommend {
+  .com {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: variables.$hy-bg-color-grey;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .com-img {
+    height: 100%;
+    width: auto;
+  }
+  .ad-big-top {
+    height: 150px;
+    background: rgb(141, 212, 138);
+    .ad-big-top-pic {
+      height: 100%;
+      width: auto;
+    }
+  }
+  .center {
+    height: 400px;
+    .center-left {
+      height: 100%;
+      width: 50%;
+      background: skyblue;
+    }
+    .center-right {
+      height: 100%;
+      width: 50%;
+      background: pink;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .center-right-top {
+        height: 50%;
+        width: 100%;
+        background: rgb(255, 240, 192);
+      }
+      .center-right-bottom {
+        height: 50%;
+        width: 100%;
+        background: rgb(183, 199, 96);
+      }
+    }
+  }
+  .ad-big-bottom {
+    height: 120px;
+    background: rgb(156, 204, 190);
+    margin: 10px 0;
+    .ad-big-bottom-pic {
+      height: 100%;
+      width: auto;
+    }
+  }
+}

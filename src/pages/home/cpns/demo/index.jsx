@@ -1,7 +1,10 @@
 import React, { memo } from "react";
 import PropTypes from "proptypes";
 
-import { View } from "@tarojs/components";
+import { useDispatch } from "react-redux";
+import { Image, Text, View } from "@tarojs/components";
+
+import { setPopularListAction } from "@/store/modules/home";
 import styles from "./index.module.scss";
 
 const HomePopular = memo(() => {

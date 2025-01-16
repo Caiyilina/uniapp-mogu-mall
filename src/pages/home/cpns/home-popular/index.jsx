@@ -3,9 +3,11 @@ import PropTypes from "proptypes";
 
 import { useDispatch } from "react-redux";
 import { Image, Text, View } from "@tarojs/components";
-import styles from "./index.module.scss";
-import imgDamage from "@/assets/images/svg/img-damage.svg";
+
 import { setPopularListAction } from "@/store/modules/home";
+
+import imgDamage from "@/assets/images/svg/img-damage.svg";
+import styles from "./index.module.scss";
 
 const HomePopular = memo((props) => {
   const dispatch = useDispatch();

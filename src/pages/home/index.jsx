@@ -11,6 +11,7 @@ import {
 } from "../../store/modules/home";
 import HomeBanner from "./cpns/home-banner";
 import HomePopular from "./cpns/home-popular";
+import HomeRecommend from "./cpns/home-recommend";
 
 const Home = memo(() => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const Home = memo(() => {
       <HomeSearch></HomeSearch>
       <HomeBanner bannerList={bannerList}></HomeBanner>
       <HomePopular popularList={popularList}></HomePopular>
+      <HomeRecommend recommend={recommend}></HomeRecommend>
     </View>
   );
 });
