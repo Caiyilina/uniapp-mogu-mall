@@ -1,13 +1,11 @@
 import React, { memo } from "react";
 import PropTypes from "proptypes";
 
-import { useDispatch } from "react-redux";
 import { Image, Text, View } from "@tarojs/components";
 
-import {} from "@/store/modules/home";
+import classNames from "classnames";
 import imgDamage from "@/assets/images/svg/img-damage.svg";
 import styles from "./index.module.scss";
-import classNames from "classnames";
 
 const HomeRecommend = memo((props) => {
   const { recommend } = props;
@@ -25,10 +23,20 @@ const HomeRecommend = memo((props) => {
       </View>
       {/* 中间 */}
       <View className={classNames(styles["com"], styles["center"])}>
-        <View className={styles["center-left"]}></View>
-        <View className={styles["center-right"]}>
-          <View className={styles["center-right-top"]}></View>
-          <View className={styles["center-right-bottom"]}></View>
+        <View className={classNames(styles["com"], styles["center-left"])}>
+          <Text>品牌清仓</Text>
+        </View>
+        <View className={classNames(styles["com"], styles["center-right"])}>
+          <View
+            className={classNames(styles["com"], styles["center-right-top"])}
+          >
+            <Text>限量秒杀</Text>
+          </View>
+          <View
+            className={classNames(styles["com"], styles["center-right-bottom"])}
+          >
+            <Text>生活超市</Text>
+          </View>
         </View>
       </View>
       <View className={classNames(styles["com"], styles["ad-big-bottom"])}>

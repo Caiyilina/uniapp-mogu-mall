@@ -9,3 +9,10 @@ export const getHomeInfoData = () => {
 export const getRecommendData = () => {
   return request.get("/recommend", {});
 };
+// 获取商品列表
+export const getGoodsData = (type = 0, page = 1) => {
+  return request.post("/goods", {
+    type, // 类型 0-精选 1-单品
+    page, // 页码
+  });
+};
