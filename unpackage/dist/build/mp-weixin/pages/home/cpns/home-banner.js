@@ -1,1 +1,0 @@
-"use strict";const e=require("../../../common/vendor.js"),n={__name:"home-banner",props:{banners:{type:Array,default:()=>[]}},emits:["bannerItemClick"],setup(n,{emit:r}){const t=r;return(r,a)=>({a:e.f(n.banners,((n,r,a)=>({a:n.image,b:e.o((e=>(e=>{const n=e.link;t("bannerItemClick",n)})(n)),r),c:r})))})}};wx.createComponent(n);

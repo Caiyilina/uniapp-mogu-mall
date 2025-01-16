@@ -1,1 +1,0 @@
-import{c as a,w as s,f as o,o as t,e,t as i}from"./index-CmE0f1Rq.js";import{o as n}from"./uni-app.es.DRFLrC22.js";const d={__name:"detail",props:{iid:{type:String,default:""}},setup:d=>(n((a=>{console.log("detail-- onLoad",a)})),(n,l)=>{const p=o;return t(),a(p,null,{default:s((()=>[e(i(d.iid),1)])),_:1})})};export{d as default};

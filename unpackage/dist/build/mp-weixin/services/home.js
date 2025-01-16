@@ -1,1 +1,0 @@
-"use strict";const e=require("./index.js");exports.getHomeData=function(t,r){return e.request.get("/home/data",{type:t,page:r})},exports.getHomeMultidata=function(){return e.request.get("/home/multidata")};
