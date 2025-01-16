@@ -36,6 +36,10 @@ const home = createSlice({
     setPopularListAction(state, action) {
       state.popularList = action.payload;
     },
+
+    setRecommendListAction(state, action) {
+      state.recommend = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchRecommendDataAction.fulfilled, (state, action) => {
@@ -48,5 +52,9 @@ const home = createSlice({
   },
 });
 
-export const { setBannerListAction, setRecommendList } = home.actions;
+export const {
+  setBannerListAction,
+  setPopularListAction,
+  setRecommendListAction,
+} = home.actions;
 export default home.reducer;
