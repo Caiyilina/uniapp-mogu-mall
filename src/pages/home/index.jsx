@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLoad } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import styles from "./index.module.scss";
@@ -9,9 +9,17 @@ import {
   fetchHomeInfoAction,
   fetchRecommendDataAction,
 } from "../../store/modules/home";
+import HomeBanner from "./cpns/home-banner";
 
 const Home = memo(() => {
   const dispatch = useDispatch();
+  const { bannerList, popularList, recommend } = useSelector((state) => {
+    return {
+      bannerList: state.home.bannerList,
+      popularList: state.home.popularList,
+      recommend: state.home.recommend,
+    };
+  });
   useLoad(() => {
     console.log("页面加载");
     dispatch(fetchHomeInfoAction());
@@ -20,6 +28,7 @@ const Home = memo(() => {
   return (
     <View className={styles["home"]}>
       <HomeSearch></HomeSearch>
+      <HomeBanner bannerList={bannerList}></HomeBanner>
     </View>
   );
 });

@@ -8,7 +8,7 @@ export const fetchHomeInfoAction = createAsyncThunk(
     const res = await getHomeInfoData();
 
     const bannerList = res.data.adsInfo.slide_ads.config.slide;
-    dispatch(setBannerList(bannerList));
+    dispatch(setBannerListAction(bannerList));
   }
 );
 export const fetchRecommendDataAction = createAsyncThunk(
@@ -29,11 +29,11 @@ const home = createSlice({
     recommend: null,
   },
   reducers: {
-    setBannerList(state, action) {
+    setBannerListAction(state, action) {
       state.bannerList = action.payload;
     },
 
-    setPopularList(state, action) {
+    setPopularListAction(state, action) {
       state.popularList = action.payload;
     },
   },
@@ -48,5 +48,5 @@ const home = createSlice({
   },
 });
 
-export const { setBannerList, setRecommendList } = home.actions;
+export const { setBannerListAction, setRecommendList } = home.actions;
 export default home.reducer;
