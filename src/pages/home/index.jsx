@@ -1,24 +1,26 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useLoad } from "@tarojs/taro";
+import { useLoad, useReachBottom } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 
 import {
   fetchHomeInfoAction,
   fetchRecommendDataAction,
   fetchGoodsDataAction,
+  setCurrentTabNameAction,
+  tabTypes,
 } from "@/store/modules/home";
 
 import TabControl from "@/components/tab-control";
 
 import GridView from "@/components/grid-view";
+
 import styles from "./index.module.scss";
 import HomeSearch from "./cpns/home-search";
 import HomeBanner from "./cpns/home-banner";
 import HomePopular from "./cpns/home-popular";
 import HomeRecommend from "./cpns/home-recommend";
-import { setCurrentTabNameAction } from "../../store/modules/home";
 
 const Home = memo(() => {
   const dispatch = useDispatch();
@@ -38,7 +40,14 @@ const Home = memo(() => {
     dispatch(fetchRecommendDataAction());
     dispatch(fetchGoodsDataAction({ type: 0, page: 1 }));
     dispatch(fetchGoodsDataAction({ type: 1, page: 1 }));
-    dispatch(fetchGoodsDataAction({ type: 1, page: 2 }));
+  });
+  useReachBottom(() => {
+    console.log("触底了");
+    const nextPage = goodsList[currentTabName].page + 1;
+
+    const type = tabTypes[0] === currentTabName ? 0 : 1;
+
+    dispatch(fetchGoodsDataAction({ type: type, page: nextPage }));
   });
   const handleTabClick = (index) => {
     console.log(index);

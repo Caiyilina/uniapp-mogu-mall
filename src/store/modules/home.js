@@ -28,6 +28,9 @@ export const fetchGoodsDataAction = createAsyncThunk(
   "home/fetchGoodsData",
   async ({ type = 0, page = 1 }) => {
     const res = await getGoodsData(type, page);
+
+    console.log("类型", type, "页码", page);
+
     const newGoods = res.data.goods || [];
     return {
       goods: newGoods,
