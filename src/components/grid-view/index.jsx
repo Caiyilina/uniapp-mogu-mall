@@ -12,7 +12,7 @@ const GridView = memo(function (props) {
     if (!goodInfo.goods_jump_url) return;
     // 跳转到webview页面
     Taro.navigateTo({
-      url: "/pages/webview/index?link=" + goodInfo.goods_jump_url,
+      url: "/pages/detail/index?link=" + goodInfo.goods_jump_url,
     });
   };
   return (
